@@ -105,7 +105,7 @@ export const CardTitle = React.memo(function CardTitle({
 }: React.HTMLAttributes<HTMLHeadingElement> & { as?: React.ElementType }) {
   return (
     <Component
-      className={`font-['Inter'] font-bold text-slate-800 text-base sm:text-lg leading-snug group-hover:text-[#1a428a] transition-colors line-clamp-2 ${className}`}
+      className={`font-['Inter'] font-bold text-slate-800 text-sm sm:text-base leading-snug group-hover:text-[#1a428a] transition-colors line-clamp-2 ${className}`}
       {...props}
     >
       {children}

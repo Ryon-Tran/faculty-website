@@ -31,12 +31,11 @@ export const SectionHeader = React.memo(function SectionHeader({
   onActionClick,
   className = '',
 }: SectionHeaderProps) {
-  const { bar, title: titleColor } = accentColorMap[accentColor];
+  const { title: titleColor } = accentColorMap[accentColor];
 
   return (
     <div className={`flex flex-col sm:flex-row sm:items-end justify-between gap-4 w-full mb-6 ${className}`}>
       <div className="flex items-start gap-3">
-        <div className={`w-1.5 min-h-[28px] rounded-full self-stretch shrink-0 ${bar}`} />
         <div className="flex flex-col gap-1">
           <h2 className={`font-['Inter'] font-extrabold text-xl sm:text-2xl md:text-3xl uppercase tracking-tight m-0 ${titleColor}`}>
             {title}

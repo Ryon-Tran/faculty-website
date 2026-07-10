@@ -10,8 +10,6 @@ import {
   CardTitle,
   CardDescription,
   SectionHeader,
-  ResponsiveTable,
-  type Column,
   ConsultationForm,
 } from '../components/ui';
 
@@ -113,8 +111,7 @@ export const NewsSection = React.memo(function NewsSection() {
   return (
     <section aria-label="Tin tức nổi bật" className="flex flex-col gap-6 px-4 sm:px-6 py-10 md:py-14 w-full max-w-5xl mx-auto">
       <SectionHeader
-        title="Tin Tức & Sự Kiện"
-        subtitle="Cập nhật những hoạt động đào tạo, hội thảo khoa học mới nhất của Khoa"
+        title="Tin tức"
         accentColor="red"
         actionLabel="Xem tất cả tin tức"
         actionTo="/tin-tuc"
@@ -161,8 +158,7 @@ export const AdmissionsSection = React.memo(function AdmissionsSection() {
         {/* Left Col: Admissions Notices */}
         <div className="flex-1 flex flex-col gap-6 w-full">
           <SectionHeader
-            title="Tuyển Sinh 2026"
-            subtitle="Thông báo xét tuyển, chỉ tiêu và hướng dẫn đăng ký nguyện vọng"
+            title="Tuyển sinh"
             accentColor="blue"
             actionLabel="Xem chi tiết"
             actionTo="/tuyen-sinh"
@@ -203,8 +199,7 @@ export const AdmissionsSection = React.memo(function AdmissionsSection() {
         {/* Right Col: Featured Video & Gallery Preview */}
         <div className="w-full lg:w-[420px] shrink-0 flex flex-col gap-6">
           <SectionHeader
-            title="Video Nổi Bật"
-            subtitle="Khoảnh khắc giảng đường SDCT"
+            title="Video nổi bật"
             accentColor="red"
             actionLabel="Tất cả video"
             actionTo="/video"
@@ -259,80 +254,8 @@ export const AdmissionsSection = React.memo(function AdmissionsSection() {
 
 AdmissionsSection.displayName = 'AdmissionsSection';
 
-/* --- 4. ADMISSIONS DATA TABLE SECTION (Demonstrating Horizontal Scroll requirement) --- */
-interface MajorInfo {
-  id: string;
-  majorName: string;
-  code: string;
-  quota: number;
-  subjectGroup: string;
-  method: string;
-}
 
-const majorsData: MajorInfo[] = [
-  { id: '1', majorName: 'Sư phạm Lịch sử', code: '7140218', quota: 65, subjectGroup: 'C00, D01, D14', method: 'Xét học bạ / Điểm thi THPT' },
-  { id: '2', majorName: 'Sư phạm Lịch sử - Địa lý', code: '7140249', quota: 80, subjectGroup: 'C00, C04, D01', method: 'Xét học bạ / Điểm thi THPT' },
-  { id: '3', majorName: 'Sư phạm Địa lý', code: '7140219', quota: 60, subjectGroup: 'A00, C00, D01', method: 'Xét học bạ / Điểm thi THPT' },
-  { id: '4', majorName: 'Giáo dục Công dân / Chính trị', code: '7140204', quota: 50, subjectGroup: 'C00, C19, D01', method: 'Xét học bạ / ĐGNL' },
-  { id: '5', majorName: 'Việt Nam học (Hướng dẫn du lịch)', code: '7310630', quota: 100, subjectGroup: 'C00, D01, D14, D15', method: 'Xét tuyển đa phương thức' },
-];
 
-export const AdmissionsTableSection = React.memo(function AdmissionsTableSection() {
-  const columns: Column<MajorInfo>[] = useMemo(() => [
-    {
-      key: 'majorName',
-      header: 'Tên Ngành Đào Tạo',
-      render: (row) => (
-        <span className="font-bold text-[#036] hover:text-[#c8102e] transition-colors">
-          {row.majorName}
-        </span>
-      ),
-    },
-    { key: 'code', header: 'Mã Ngành', align: 'center', width: '130px' },
-    {
-      key: 'quota',
-      header: 'Chỉ Tiêu',
-      align: 'center',
-      width: '110px',
-      render: (row) => (
-        <span className="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold text-xs">
-          {row.quota} SV
-        </span>
-      ),
-    },
-    { key: 'subjectGroup', header: 'Tổ Hợp Xét Tuyển', align: 'center' },
-    {
-      key: 'method',
-      header: 'Phương Thức Xét Tuyển',
-      render: (row) => (
-        <span className="text-slate-600 text-xs sm:text-sm font-medium">
-          {row.method}
-        </span>
-      ),
-    },
-  ], []);
-
-  return (
-    <section aria-label="Bảng chỉ tiêu tuyển sinh" className="px-4 sm:px-6 py-12 md:py-14 w-full max-w-5xl mx-auto">
-      <SectionHeader
-        title="Chỉ Tiêu & Mã Ngành Tuyển Sinh 2026"
-        subtitle="Bảng tổng hợp chi tiết các ngành đào tạo bậc Đại học chính quy tại Khoa"
-        accentColor="slate"
-        actionLabel="Tải Brochure tuyển sinh PDF"
-        actionTo="/tuyen-sinh"
-      />
-
-      <ResponsiveTable
-        columns={columns}
-        data={majorsData}
-        keyExtractor={(item) => item.id}
-        ariaLabel="Bảng chỉ tiêu tuyển sinh 2026"
-      />
-    </section>
-  );
-});
-
-AdmissionsTableSection.displayName = 'AdmissionsTableSection';
 
 /* --- 5. STUDENT ACTIVITIES & FACES SECTION --- */
 export const ActivitiesSection = React.memo(function ActivitiesSection() {
@@ -351,8 +274,7 @@ export const ActivitiesSection = React.memo(function ActivitiesSection() {
         {/* Featured Activity Card */}
         <div className="flex-1 flex flex-col gap-6 w-full">
           <SectionHeader
-            title="Hoạt Động Sinh Viên"
-            subtitle="Phong trào Đoàn Hội, nghiên cứu khoa học và thực tập thực tế"
+            title="Hoạt động sinh viên"
             accentColor="red"
             actionLabel="Xem tất cả"
             actionTo="/hoat-dong"
@@ -372,8 +294,7 @@ export const ActivitiesSection = React.memo(function ActivitiesSection() {
         {/* Photo Gallery Grid */}
         <div className="w-full lg:w-[460px] shrink-0 flex flex-col gap-6">
           <SectionHeader
-            title="Thư Viện Ảnh"
-            subtitle="Nhịp sống sinh viên SDCT"
+            title="Thư viện ảnh"
             accentColor="blue"
           />
 
@@ -404,8 +325,7 @@ export const FacesSection = React.memo(function FacesSection() {
   return (
     <section aria-label="Gương mặt sinh viên tiêu biểu" className="px-4 sm:px-6 py-12 md:py-16 w-full max-w-5xl mx-auto">
       <SectionHeader
-        title="Gương Mặt Sinh Viên Điển Hình"
-        subtitle="Những sinh viên xuất sắc trong học tập, nghiên cứu và rèn luyện"
+        title="Gương mặt sinh viên điển hình"
         accentColor="red"
       />
 
@@ -452,7 +372,6 @@ export default function Home() {
       <HeroBanner />
       <NewsSection />
       <AdmissionsSection />
-      <AdmissionsTableSection />
       <ActivitiesSection />
       <FacesSection />
       <ConsultationSection />
