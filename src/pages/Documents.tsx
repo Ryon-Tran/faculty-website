@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AppSidebar } from '../components/ui/AppSidebar';
 
 const documents = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
@@ -31,11 +32,7 @@ export default function Documents() {
         <p className="font-normal text-[#666] text-[14px] m-0">Tài liệu & Biểu mẫu</p>
       </div>
 
-      <div className="flex h-[300px] items-center justify-center relative w-full bg-[#1a428a]">
-        <p className="font-extrabold text-[42px] text-center text-white uppercase relative">Tài liệu & Biểu mẫu</p>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-[40px] items-start px-[80px] py-[64px] w-full md:px-[20px] lg:px-[80px]">
+      <div className="flex flex-col lg:flex-row gap-[40px] items-start px-[80px] py-[32px] w-full md:px-[20px] lg:px-[80px] border-t border-[#e5e7eb]">
         <div className="flex flex-1 flex-col gap-[24px] items-start w-full">
           <div className="flex flex-wrap gap-[16px] mb-[8px]">
             {["Tất cả", "Sinh viên", "Đào tạo", "NCKH", "Sau đại học"].map((cat, idx) => (
@@ -80,6 +77,7 @@ export default function Documents() {
               Nhấn nút "Tải" để tải tài liệu về máy tính. Nếu gặp vấn đề, vui lòng liên hệ Văn phòng Khoa.
             </p>
           </div>
+          <AppSidebar />
         </aside>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AppSidebar } from '../components/ui/AppSidebar';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -21,15 +22,10 @@ export default function Education() {
         <p className="font-normal text-[#666] text-[14px] m-0">Đào tạo</p>
       </div>
 
-      <div className="flex h-[280px] items-center justify-center relative w-full">
-        <div className="absolute inset-0"><img alt="" className="absolute object-cover size-full" src={placeholderImg} /><div className="absolute bg-[rgba(0,0,0,0.5)] inset-0" /></div>
-        <p className="font-extrabold text-[48px] text-center text-white uppercase relative">Chương trình đào tạo</p>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-[40px] items-start px-[80px] py-[64px] w-full md:px-[20px] lg:px-[80px]">
+      <div className="flex flex-col lg:flex-row gap-[40px] items-start px-[80px] py-[32px] w-full md:px-[20px] lg:px-[80px] border-t border-[#e5e7eb]">
         <div className="flex flex-1 flex-col gap-[40px] items-start w-full">
           <div className="flex flex-col gap-[24px] w-full">
-            <h2 className="font-bold text-[#c8102e] text-[24px] uppercase m-0">Các ngành đào tạo</h2>
+            <h2 className="font-bold text-[#c8102e] text-[24px] uppercase m-0">Chương trình đào tạo</h2>
             <div className="flex flex-col gap-[16px] w-full">
               {programs.map((prog, idx) => (
                 <div key={idx} className="bg-white border border-[#e5e7eb] flex flex-col md:flex-row gap-[20px] items-start p-[24px] rounded-[12px] hover:shadow-md transition-shadow cursor-pointer">
@@ -62,14 +58,15 @@ export default function Education() {
           <div className="bg-[#f5f7fa] flex flex-col gap-[16px] items-start p-[24px] rounded-[12px] w-full">
             <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0">Bậc đào tạo</p>
             <div className="flex flex-col gap-[12px] w-full">
-              {['Đại học chính quy', 'Thạc sĩ', 'Tiến sĩ', 'Bồi dưỡng nghiệp vụ'].map((link, idx) => (
-                <div key={idx} className="flex gap-[8px] items-center w-full cursor-pointer hover:underline text-[#0d4d99]">
+              {['Đại học chính quy', 'Sau đại học', 'Đào tạo ngắn hạn'].map((link, idx) => (
+                <div key={idx} className="flex gap-[8px] items-center cursor-pointer hover:underline text-[#0d4d99]">
                   <span className="text-[12px]">&gt;</span>
-                  <p className="flex-1 font-medium text-[14px] m-0">{link}</p>
+                  <p className="font-medium text-[14px] m-0">{link}</p>
                 </div>
               ))}
             </div>
           </div>
+          <AppSidebar />
           <div className="bg-[#f5f7fa] flex flex-col gap-[16px] items-start p-[24px] rounded-[12px] w-full">
             <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0">Tài liệu</p>
             <div className="flex flex-col gap-[12px] w-full">

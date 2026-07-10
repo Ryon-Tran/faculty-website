@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AppSidebar } from '../components/ui/AppSidebar';
 
 const imgHeroBanner = "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop";
 const imgDepartmentGroupPhoto = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
@@ -127,7 +128,7 @@ export default function About() {
               <div className="absolute bg-[rgba(0,0,0,0.35)] inset-0" />
             </div>
             <div className="absolute flex flex-col gap-[6px] items-start left-[24px] text-white top-[24px]">
-              <p className="font-extrabold text-[28px] m-0">Tuyển sinh 2025</p>
+              <p className="font-extrabold text-[28px] m-0">Tuyển sinh 2026</p>
               <p className="font-bold text-[18px] m-0">Khoa Sử - Địa – Chính trị</p>
             </div>
             <div className="absolute bottom-[24px] flex flex-col gap-[8px] items-start left-[24px] right-[24px]">
@@ -140,6 +141,7 @@ export default function About() {
               </Link>
             </div>
           </div>
+          <AppSidebar />
         </div>
       </div>
     </div>

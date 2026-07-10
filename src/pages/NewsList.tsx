@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import newsData from '../data/news.json';
+import { AppSidebar } from '../components/ui/AppSidebar';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -44,19 +45,13 @@ export default function NewsList() {
 
   return (
     <div className="flex flex-col items-start w-full font-['Inter']">
-      <div className="flex gap-2 items-center px-20 py-5 w-full md:px-5 lg:px-20">
+      <div className="flex gap-2 items-center px-[20px] py-[20px] w-full lg:px-[80px]">
         <Link to="/" className="font-medium text-[#0d4d99] text-[14px] no-underline">Trang chủ</Link>
         <span className="text-[#666] text-[12px]">&gt;</span>
         <p className="font-normal text-[#666] text-[14px] m-0">Tin tức</p>
       </div>
 
-      <div className="flex h-55 sm:h-75 items-center justify-center relative w-full bg-[#1a428a]">
-        <p className="font-extrabold text-[30px] sm:text-[42px] text-center text-white uppercase relative">
-          Tin tức & Sự kiện
-        </p>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-8 items-start px-4 sm:px-6 py-10 sm:py-16 w-full lg:px-6">
+      <div className="flex flex-col lg:flex-row gap-8 items-start px-[20px] lg:px-[80px] py-6 sm:py-8 w-full border-t border-[#e5e7eb]">
         <div className="flex flex-1 flex-col gap-[32px] items-start w-full">
           <div className="flex items-center w-full">
             <h2 className="font-bold text-[#c8102e] text-[24px] uppercase m-0">
@@ -127,23 +122,6 @@ export default function NewsList() {
 
         <div className="flex flex-col gap-6 items-start w-full lg:w-75">
           <div className="bg-[#f5f7fa] flex flex-col gap-4 items-start p-6 rounded-xl w-full">
-            <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0">Chuyên mục</p>
-            <div className="flex flex-col gap-3 w-full">
-              {["Tuyển sinh", "Thông báo", "Đào tạo", "Hợp tác", "Sinh viên"].map((cat, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => handleCategoryChange(cat)}
-                  className={`flex gap-[8px] items-center w-full cursor-pointer hover:underline ${
-                    activeCategory === cat ? 'text-[#c8102e] font-bold' : 'text-[#0d4d99]'
-                  }`}
-                >
-                  <span className="text-[12px]">&gt;</span>
-                  <p className="flex-1 font-medium text-[14px] m-0">{cat}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="bg-[#f5f7fa] flex flex-col gap-4 items-start p-6 rounded-xl w-full">
             <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0">Bài viết mới nhất</p>
             <div className="flex flex-col gap-4 w-full">
               {newsData.slice(0, 4).map((item, idx) => (
@@ -159,6 +137,7 @@ export default function NewsList() {
               ))}
             </div>
           </div>
+          <AppSidebar />
         </div>
       </div>
     </div>

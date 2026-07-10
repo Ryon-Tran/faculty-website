@@ -5,6 +5,7 @@ import notificationsData from '../data/notifications.json';
 import admissionsData from '../data/admissions.json';
 import cooperationData from '../data/cooperation.json';
 import studentsData from '../data/students.json';
+import { AppSidebar } from '../components/ui/AppSidebar';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -75,8 +76,8 @@ export default function NewsDetail() {
           </div>
 
           {article.image && (
-            <div className="aspect-video relative rounded-[12px] w-full overflow-hidden bg-gray-100">
-              <img alt={article.title} className="absolute inset-0 object-cover size-full" src={article.image} />
+            <div className="relative rounded-[12px] w-full overflow-hidden flex justify-center bg-gray-50">
+              <img alt={article.title} className="max-w-full h-auto max-h-[600px] object-contain rounded-[12px]" src={article.image} />
             </div>
           )}
 
@@ -127,6 +128,7 @@ export default function NewsDetail() {
               })}
             </div>
           </div>
+          <AppSidebar />
         </aside>
       </div>
     </div>

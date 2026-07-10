@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AppSidebar } from '../components/ui/AppSidebar';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -18,8 +19,8 @@ export default function AboutDetail() {
         <article className="flex flex-1 flex-col gap-[32px] items-start w-full">
           <h1 className="font-bold text-[#1a428a] text-[22px] sm:text-[28px] leading-[1.4] m-0">Lịch sử hình thành và phát triển</h1>
 
-          <div className="aspect-video relative rounded-[12px] w-full overflow-hidden">
-            <img alt="" className="absolute inset-0 object-cover size-full" src={placeholderImg} />
+          <div className="relative rounded-[12px] w-full overflow-hidden flex justify-center bg-gray-50">
+            <img alt="" className="max-w-full h-auto max-h-[600px] object-contain rounded-[12px]" src={placeholderImg} />
           </div>
 
           <div className="flex flex-col gap-[16px] w-full text-[#111] text-[16px] leading-[1.8]">
@@ -66,6 +67,7 @@ export default function AboutDetail() {
               </Link>
             </div>
           </div>
+          <AppSidebar />
         </aside>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import admissionsData from '../data/admissions.json';
+import { AppSidebar } from '../components/ui/AppSidebar';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -125,6 +126,7 @@ export default function Admissions() {
               Liên hệ ngay →
             </button>
           </div>
+          <AppSidebar />
         </div>
       </div>
     </div>

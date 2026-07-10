@@ -20,6 +20,7 @@ import Documents from './pages/Documents';
 import Gallery from './pages/Gallery';
 import Videos from './pages/Videos';
 import NotFound from './pages/NotFound';
+import Cooperation from './pages/Cooperation';
 
 export default function App() {
   return (
@@ -49,7 +50,7 @@ export default function App() {
           <Route path="tai-lieu-bieu-mau" element={<Documents />} />
 
           {/* Hợp tác */}
-          <Route path="hop-tac" element={<NewsList />} />
+          <Route path="hop-tac" element={<Cooperation />} />
 
           {/* Hoạt động sinh viên */}
           <Route path="hoat-dong" element={<Activities />} />

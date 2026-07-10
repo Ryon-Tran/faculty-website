@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import notificationsData from '../data/notifications.json';
+import { AppSidebar } from '../components/ui/AppSidebar';
 
 const getCategory = (link: string) => {
   if (link.includes('/dao-tao/')) return 'Đào tạo';
@@ -41,17 +42,13 @@ export default function Notifications() {
 
   return (
     <div className="flex flex-col items-start w-full font-['Inter']">
-      <div className="flex gap-[8px] items-center px-[80px] py-[20px] w-full md:px-[20px] lg:px-[80px]">
+      <div className="flex gap-[8px] items-center px-[20px] py-[20px] w-full lg:px-[80px]">
         <Link to="/" className="font-medium text-[#0d4d99] text-[14px] no-underline">Trang chủ</Link>
         <span className="text-[#666] text-[12px]">&gt;</span>
         <p className="font-normal text-[#666] text-[14px] m-0">Thông báo</p>
       </div>
 
-      <div className="flex h-[220px] sm:h-[300px] items-center justify-center relative w-full bg-[#1a428a]">
-        <p className="font-extrabold text-[30px] sm:text-[42px] text-center text-white uppercase relative">Thông báo</p>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-8 items-start px-4 sm:px-6 py-10 sm:py-16 w-full lg:px-6">
+      <div className="flex flex-col lg:flex-row gap-8 items-start px-[20px] lg:px-[80px] py-6 sm:py-8 w-full border-t border-[#e5e7eb]">
         <div className="flex flex-1 flex-col gap-[24px] items-start w-full">
           <div className="flex flex-wrap gap-3 mb-2">
             {["Tất cả", "Đào tạo", "Sinh viên", "Tuyển sinh", "Hợp tác"].map((cat, idx) => (
@@ -140,6 +137,7 @@ export default function Notifications() {
               ))}
             </div>
           </div>
+          <AppSidebar />
         </aside>
       </div>
     </div>

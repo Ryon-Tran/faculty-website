@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AppSidebar } from '../components/ui/AppSidebar';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -21,18 +22,13 @@ const admissionPosts = Array.from({ length: 8 }, (_, i) => ({
 export default function AdmissionsList() {
   return (
     <div className="flex flex-col items-start w-full font-['Inter']">
-      <div className="flex gap-2 items-center px-20 py-5 w-full md:px-5 lg:px-20">
+      <div className="flex gap-[8px] items-center px-[20px] py-[20px] w-full lg:px-[80px]">
         <Link to="/" className="font-medium text-[#0d4d99] text-[14px] no-underline">Trang chủ</Link>
         <span className="text-[#666] text-[12px]">&gt;</span>
         <p className="font-normal text-[#666] text-[14px] m-0">Tuyển sinh</p>
       </div>
 
-      <div className="flex h-55 sm:h-75 items-center justify-center relative w-full">
-        <div className="absolute inset-0"><img alt="" className="absolute object-cover size-full" src={placeholderImg} /><div className="absolute bg-[rgba(0,0,0,0.5)] inset-0" /></div>
-        <p className="font-extrabold text-[42px] text-center text-white uppercase relative">Thông tin tuyển sinh</p>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-8 items-start px-4 sm:px-6 py-10 sm:py-16 w-full lg:px-6">
+      <div className="flex flex-col lg:flex-row gap-8 items-start px-[20px] lg:px-[80px] py-6 sm:py-8 w-full border-t border-[#e5e7eb]">
         <div className="flex flex-1 flex-col gap-[24px] items-start w-full">
           <h2 className="font-bold text-[#c8102e] text-[24px] uppercase m-0">Danh sách bài viết tuyển sinh</h2>
           <div className="flex flex-col gap-[16px] w-full">
@@ -75,6 +71,7 @@ export default function AdmissionsList() {
               ))}
             </div>
           </div>
+          <AppSidebar />
         </aside>
       </div>
     </div>
