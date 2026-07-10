@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+﻿import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import newsData from '../data/news.json';
 import admissionsData from '../data/admissions.json';
@@ -10,6 +10,8 @@ import {
   CardTitle,
   CardDescription,
   SectionHeader,
+  ResponsiveTable,
+  type Column,
   ConsultationForm,
 } from '../components/ui';
 
@@ -110,16 +112,13 @@ export const NewsSection = React.memo(function NewsSection() {
 
   return (
     <section aria-label="Tin tức nổi bật" className="flex flex-col gap-6 px-4 sm:px-6 py-10 md:py-14 w-full max-w-5xl mx-auto">
-      <div className="flex justify-between items-end border-b-2 border-slate-100 pb-3">
-        <div className="flex flex-col gap-1.5">
-          <h2 className="font-['Inter'] font-bold text-[#003366] text-2xl md:text-3xl uppercase tracking-tight m-0">
-            TIN TỨC & SỰ KIỆN
-          </h2>
-          <Link to="/tin-tuc" className="font-['Inter'] font-bold text-[#c8102e] text-sm uppercase hover:underline">
-            TẤT CẢ BÀI VIẾT
-          </Link>
-        </div>
-      </div>
+      <SectionHeader
+        title="Tin Tức & Sự Kiện"
+        subtitle="Cập nhật những hoạt động đào tạo, hội thảo khoa học mới nhất của Khoa"
+        accentColor="red"
+        actionLabel="Xem tất cả tin tức"
+        actionTo="/tin-tuc"
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
         {featuredNews.map((item, idx) => (
@@ -157,107 +156,100 @@ export const AdmissionsSection = React.memo(function AdmissionsSection() {
   const topAdmissions = useMemo(() => admissionsData.slice(0, 5), []);
 
   return (
-    <section aria-label="Thông tin tuyển sinh và video" className="bg-slate-50 px-4 sm:px-6 py-12 md:py-16 w-full">
-      <div className="max-w-[1100px] mx-auto flex flex-col lg:flex-row gap-12 items-start">
+    <section aria-label="Thông tin tuyển sinh và video" className="bg-white border-y border-slate-200/80 px-4 sm:px-6 py-12 md:py-16 w-full">
+      <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-10 items-start">
         {/* Left Col: Admissions Notices */}
         <div className="flex-1 flex flex-col gap-6 w-full">
-          <div className="mb-2">
-            <h2 className="font-['Inter'] font-bold text-[#c8102e] text-2xl uppercase tracking-tight m-0">
-              TUYỂN SINH
-            </h2>
-          </div>
+          <SectionHeader
+            title="Tuyển Sinh 2026"
+            subtitle="Thông báo xét tuyển, chỉ tiêu và hướng dẫn đăng ký nguyện vọng"
+            accentColor="blue"
+            actionLabel="Xem chi tiết"
+            actionTo="/tuyen-sinh"
+          />
 
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col gap-3 w-full">
             {topAdmissions.map((item, idx) => {
               const { day, month } = getDayAndMonth(item.date);
-              const isLast = idx === topAdmissions.length - 1;
-              const bgColor = isLast ? 'bg-[#c8102e]' : 'bg-[#1a428a]';
+              const isEven = idx % 2 === 0;
               return (
                 <Link
                   to={`/tin-tuc/${getSlug(item.link)}`}
                   key={idx}
-                  className="group flex items-start gap-5 py-5 border-b border-slate-200 hover:bg-white/60 transition-all no-underline"
+                  className="group flex items-start gap-4 p-3.5 rounded-2xl border border-slate-200/70 bg-slate-50/40 hover:bg-white hover:shadow-md hover:border-[#1a428a]/30 transition-all no-underline"
                 >
-                  <div className={`flex flex-col items-center justify-center rounded-lg size-16 shrink-0 text-white shadow-sm ${bgColor}`}>
-                    <span className="font-['Inter'] font-bold text-2xl leading-none">
-                      {day}
-                    </span>
-                    <span className="font-['Inter'] font-bold text-[9px] uppercase mt-1 tracking-wider opacity-90">
+                  <div className="flex flex-col items-center justify-center rounded-xl size-14 shrink-0 shadow-xs border border-slate-200/60 overflow-hidden bg-white">
+                    <span className={`w-full py-0.5 text-center font-bold text-[10px] uppercase text-white ${isEven ? 'bg-[#1a428a]' : 'bg-[#c8102e]'}`}>
                       {month}
                     </span>
+                    <span className="font-['Inter'] font-black text-lg text-slate-800 leading-tight">
+                      {day}
+                    </span>
                   </div>
-                  <div className="flex flex-col gap-1.5 flex-1 min-w-0 pt-0.5">
-                    <h3 className="font-['Inter'] font-bold text-[15px] sm:text-base text-slate-800 group-hover:text-[#1a428a] transition-colors leading-snug m-0">
+                  <div className="flex flex-col gap-1 flex-1 min-w-0">
+                    <h3 className="font-['Inter'] font-bold text-sm sm:text-base text-slate-800 group-hover:text-[#1a428a] transition-colors line-clamp-2 m-0">
                       {item.title}
                     </h3>
-                    <p className="font-['Inter'] font-normal text-[13px] sm:text-sm text-slate-500 line-clamp-2 m-0">
-                      {item.description || "Bạn đam mê khám phá thế giới, đọc mọi hiện tượng, con người, và muốn truyền cảm hứng..."}
+                    <p className="font-['Inter'] font-normal text-xs sm:text-sm text-slate-500 line-clamp-2 m-0">
+                      {item.description || "Nhấp để xem trọn bộ thông báo chỉ tiêu, điều kiện xét tuyển và thời gian nộp hồ sơ..."}
                     </p>
                   </div>
                 </Link>
               );
             })}
           </div>
-
-          <div className="flex justify-center mt-3">
-            <Link to="/tuyen-sinh" className="font-['Inter'] font-bold text-[#1a428a] text-[13px] uppercase hover:underline border-b border-transparent hover:border-[#1a428a] pb-0.5">
-              XEM THÊM
-            </Link>
-          </div>
         </div>
 
         {/* Right Col: Featured Video & Gallery Preview */}
-        <div className="w-full lg:w-[480px] shrink-0 flex flex-col gap-6">
-          <div className="mb-2 flex items-center gap-3">
-            <div className="w-1.5 h-6 bg-[#1a428a]"></div>
-            <h2 className="font-['Inter'] font-bold text-[#1a428a] text-2xl uppercase tracking-tight m-0">
-              VIDEO NỔI BẬT
-            </h2>
-          </div>
+        <div className="w-full lg:w-[420px] shrink-0 flex flex-col gap-6">
+          <SectionHeader
+            title="Video Nổi Bật"
+            subtitle="Khoảnh khắc giảng đường SDCT"
+            accentColor="red"
+            actionLabel="Tất cả video"
+            actionTo="/video"
+          />
 
           {/* Main Video Box */}
-          <div className="aspect-[16/10] relative rounded-xl overflow-hidden shadow-sm group cursor-pointer bg-slate-900 border border-slate-200/60">
+          <div className="aspect-video relative rounded-2xl overflow-hidden shadow-md group cursor-pointer border border-slate-200 bg-slate-900">
             <img
               alt="Video nổi bật Khoa Sử Địa Chính Trị"
-              className="absolute inset-0 object-cover size-full transition-transform duration-700 group-hover:scale-105 opacity-90"
+              className="absolute inset-0 object-cover size-full transition-transform duration-700 group-hover:scale-105"
               src={placeholderImg}
             />
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-              <div className="size-14 rounded-full bg-[#c8102e]/90 text-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110 backdrop-blur-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" className="ml-1">
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+              <div className="size-16 rounded-full bg-[#c8102e] text-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white" className="ml-1">
                   <polygon points="5 3 19 12 5 21 5 3"></polygon>
                 </svg>
               </div>
             </div>
+            <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 text-white text-xs sm:text-sm font-bold line-clamp-1">
+              🎥 Giới thiệu Khoa Sử - Địa - Chính trị (ĐH Sư phạm Đà Nẵng)
+            </div>
           </div>
 
           {/* Mini Thumbnails */}
-          <div className="grid grid-cols-3 gap-3 -mt-2">
+          <div className="grid grid-cols-3 gap-3">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="aspect-[4/3] relative rounded-lg overflow-hidden shadow-sm group cursor-pointer bg-slate-800 border border-slate-200/60"
+                className="aspect-video relative rounded-xl overflow-hidden shadow-xs group cursor-pointer border border-slate-200 bg-slate-800"
               >
                 <img
                   alt={`Mini video ${i}`}
-                  className="absolute inset-0 object-cover size-full transition-transform duration-500 group-hover:scale-110 opacity-90"
+                  className="absolute inset-0 object-cover size-full transition-transform duration-500 group-hover:scale-110"
                   src={placeholderImg}
                 />
-                <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                  <div className="size-8 rounded-full bg-[#c8102e]/90 text-white flex items-center justify-center shadow-sm backdrop-blur-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="white" className="ml-0.5">
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <div className="size-8 rounded-full bg-[#c8102e]/80 text-white flex items-center justify-center shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white" className="ml-0.5">
                       <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="flex justify-end mt-2">
-            <Link to="/video" className="font-['Inter'] font-bold text-[#1a428a] text-[13px] uppercase hover:underline border-b border-transparent hover:border-[#1a428a] pb-0.5">
-              XEM THÊM
-            </Link>
           </div>
         </div>
       </div>
@@ -267,14 +259,86 @@ export const AdmissionsSection = React.memo(function AdmissionsSection() {
 
 AdmissionsSection.displayName = 'AdmissionsSection';
 
+/* --- 4. ADMISSIONS DATA TABLE SECTION (Demonstrating Horizontal Scroll requirement) --- */
+interface MajorInfo {
+  id: string;
+  majorName: string;
+  code: string;
+  quota: number;
+  subjectGroup: string;
+  method: string;
+}
 
+const majorsData: MajorInfo[] = [
+  { id: '1', majorName: 'Sư phạm Lịch sử', code: '7140218', quota: 65, subjectGroup: 'C00, D01, D14', method: 'Xét học bạ / Điểm thi THPT' },
+  { id: '2', majorName: 'Sư phạm Lịch sử - Địa lý', code: '7140249', quota: 80, subjectGroup: 'C00, C04, D01', method: 'Xét học bạ / Điểm thi THPT' },
+  { id: '3', majorName: 'Sư phạm Địa lý', code: '7140219', quota: 60, subjectGroup: 'A00, C00, D01', method: 'Xét học bạ / Điểm thi THPT' },
+  { id: '4', majorName: 'Giáo dục Công dân / Chính trị', code: '7140204', quota: 50, subjectGroup: 'C00, C19, D01', method: 'Xét học bạ / ĐGNL' },
+  { id: '5', majorName: 'Việt Nam học (Hướng dẫn du lịch)', code: '7310630', quota: 100, subjectGroup: 'C00, D01, D14, D15', method: 'Xét tuyển đa phương thức' },
+];
 
+export const AdmissionsTableSection = React.memo(function AdmissionsTableSection() {
+  const columns: Column<MajorInfo>[] = useMemo(() => [
+    {
+      key: 'majorName',
+      header: 'Tên Ngành Đào Tạo',
+      render: (row) => (
+        <span className="font-bold text-[#036] hover:text-[#c8102e] transition-colors">
+          {row.majorName}
+        </span>
+      ),
+    },
+    { key: 'code', header: 'Mã Ngành', align: 'center', width: '130px' },
+    {
+      key: 'quota',
+      header: 'Chỉ Tiêu',
+      align: 'center',
+      width: '110px',
+      render: (row) => (
+        <span className="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold text-xs">
+          {row.quota} SV
+        </span>
+      ),
+    },
+    { key: 'subjectGroup', header: 'Tổ Hợp Xét Tuyển', align: 'center' },
+    {
+      key: 'method',
+      header: 'Phương Thức Xét Tuyển',
+      render: (row) => (
+        <span className="text-slate-600 text-xs sm:text-sm font-medium">
+          {row.method}
+        </span>
+      ),
+    },
+  ], []);
+
+  return (
+    <section aria-label="Bảng chỉ tiêu tuyển sinh" className="px-4 sm:px-6 py-12 md:py-14 w-full max-w-5xl mx-auto">
+      <SectionHeader
+        title="Chỉ Tiêu & Mã Ngành Tuyển Sinh 2026"
+        subtitle="Bảng tổng hợp chi tiết các ngành đào tạo bậc Đại học chính quy tại Khoa"
+        accentColor="slate"
+        actionLabel="Tải Brochure tuyển sinh PDF"
+        actionTo="/tuyen-sinh"
+      />
+
+      <ResponsiveTable
+        columns={columns}
+        data={majorsData}
+        keyExtractor={(item) => item.id}
+        ariaLabel="Bảng chỉ tiêu tuyển sinh 2026"
+      />
+    </section>
+  );
+});
+
+AdmissionsTableSection.displayName = 'AdmissionsTableSection';
 
 /* --- 5. STUDENT ACTIVITIES & FACES SECTION --- */
 export const ActivitiesSection = React.memo(function ActivitiesSection() {
   const featuredAct = useMemo(() => studentsData[0] || {
     title: "Bảo vệ chuyên đề tổng quan luận án tiến sĩ",
-    description: "Vừa qua, Khoa Sử - Địa - Chính trị đã tổ chức bảo vệ chuyên đề tổng quan luận án tiến sĩ đối với NCS ngành Lịch sử Việt Nam. Khoa Sử - Địa - Chính trị hiện đào tạo đa ngành, đa lĩnh vực, đa cấp độ. Trong đó đào tạo bậc tiến sĩ là khẳng định năng lực đội ngũ...",
+    description: "Vừa qua, Khoa Sử - Địa - Chính trị đã tổ chức bảo vệ chuyên đề tổng quan cho nghiên cứu sinh ngành Lịch sử thế giới...",
     image: placeholderImg,
     link: "#"
   }, []);
@@ -282,54 +346,46 @@ export const ActivitiesSection = React.memo(function ActivitiesSection() {
   const otherActs = useMemo(() => studentsData.slice(1, 5), []);
 
   return (
-    <section aria-label="Hoạt động sinh viên và thư viện" className="bg-white px-4 sm:px-6 py-12 md:py-16 w-full">
-      <div className="max-w-[1100px] mx-auto flex flex-col lg:flex-row gap-12 items-start">
+    <section aria-label="Hoạt động sinh viên và thư viện" className="bg-slate-50 border-t border-slate-200/80 px-4 sm:px-6 py-12 md:py-16 w-full">
+      <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-10 items-start">
         {/* Featured Activity Card */}
         <div className="flex-1 flex flex-col gap-6 w-full">
-          <div className="mb-2">
-            <h2 className="font-['Inter'] font-bold text-[#c8102e] text-2xl uppercase tracking-tight m-0">
-              HOẠT ĐỘNG SINH VIÊN
-            </h2>
-          </div>
+          <SectionHeader
+            title="Hoạt Động Sinh Viên"
+            subtitle="Phong trào Đoàn Hội, nghiên cứu khoa học và thực tập thực tế"
+            accentColor="red"
+            actionLabel="Xem tất cả"
+            actionTo="/hoat-dong"
+          />
 
-          <Link to={`/tin-tuc/${getSlug(featuredAct.link)}`} className="no-underline group block">
-            <div className="flex flex-col bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="aspect-[16/10] w-full relative overflow-hidden bg-slate-100">
-                <img src={featuredAct.image || placeholderImg} alt={featuredAct.title} className="absolute inset-0 size-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              </div>
-              <div className="p-6 flex flex-col">
-                <h3 className="font-['Inter'] text-[18px] sm:text-[20px] font-bold text-slate-900 group-hover:text-[#1a428a] transition-colors leading-tight m-0">{featuredAct.title}</h3>
-                <p className="font-['Inter'] text-[14px] text-slate-500 mt-3 line-clamp-3 leading-relaxed m-0">{featuredAct.description}</p>
-                <div className="flex justify-end mt-5">
-                  <span className="font-['Inter'] font-bold text-[#1a428a] text-[13px] uppercase hover:underline border-b border-transparent group-hover:border-[#1a428a] pb-0.5">
-                    XEM THÊM
-                  </span>
-                </div>
-              </div>
-            </div>
+          <Link to={`/tin-tuc/${getSlug(featuredAct.link)}`} className="no-underline group">
+            <Card hoverEffect bordered className="h-full">
+              <CardImage src={featuredAct.image || placeholderImg} alt={featuredAct.title} aspectRatio="video" badge="Hoạt động nổi bật" />
+              <CardHeader className="p-5 sm:p-6">
+                <CardTitle className="text-lg sm:text-xl font-extrabold">{featuredAct.title}</CardTitle>
+                <CardDescription className="text-sm mt-1">{featuredAct.description}</CardDescription>
+              </CardHeader>
+            </Card>
           </Link>
         </div>
 
         {/* Photo Gallery Grid */}
-        <div className="w-full lg:w-[480px] shrink-0 flex flex-col gap-6">
-          <div className="mb-2 flex items-center gap-3">
-            <div className="w-1.5 h-6 bg-[#1a428a]"></div>
-            <h2 className="font-['Inter'] font-bold text-[#c8102e] text-2xl uppercase tracking-tight m-0">
-              THƯ VIỆN ẢNH
-            </h2>
-          </div>
+        <div className="w-full lg:w-[460px] shrink-0 flex flex-col gap-6">
+          <SectionHeader
+            title="Thư Viện Ảnh"
+            subtitle="Nhịp sống sinh viên SDCT"
+            accentColor="blue"
+          />
 
           <div className="grid grid-cols-2 gap-4">
             {otherActs.map((item, idx) => (
-              <Link to={`/tin-tuc/${getSlug(item.link)}`} key={idx} className="no-underline group block">
-                <div className="flex flex-col bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow h-full">
-                  <div className="aspect-[4/3] w-full relative overflow-hidden bg-slate-100">
-                    <img src={item.image || placeholderImg} alt={item.title} className="absolute inset-0 size-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div className="p-3 bg-[#003366] text-white font-['Inter'] font-medium text-[12px] text-center line-clamp-1 group-hover:bg-[#1a428a] transition-colors w-full m-0">
+              <Link to={`/tin-tuc/${getSlug(item.link)}`} key={idx} className="no-underline group">
+                <Card hoverEffect bordered className="h-full">
+                  <CardImage src={item.image || placeholderImg} alt={item.title} aspectRatio="wide" />
+                  <div className="p-3 bg-[#002452] text-white font-medium text-xs text-center line-clamp-1 group-hover:bg-[#1a428a] transition-colors">
                     {item.title}
                   </div>
-                </div>
+                </Card>
               </Link>
             ))}
           </div>
@@ -348,7 +404,8 @@ export const FacesSection = React.memo(function FacesSection() {
   return (
     <section aria-label="Gương mặt sinh viên tiêu biểu" className="px-4 sm:px-6 py-12 md:py-16 w-full max-w-5xl mx-auto">
       <SectionHeader
-        title="Gương mặt sinh viên điển hình"
+        title="Gương Mặt Sinh Viên Điển Hình"
+        subtitle="Những sinh viên xuất sắc trong học tập, nghiên cứu và rèn luyện"
         accentColor="red"
       />
 
@@ -395,6 +452,7 @@ export default function Home() {
       <HeroBanner />
       <NewsSection />
       <AdmissionsSection />
+      <AdmissionsTableSection />
       <ActivitiesSection />
       <FacesSection />
       <ConsultationSection />
