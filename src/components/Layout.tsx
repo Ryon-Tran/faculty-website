@@ -109,7 +109,7 @@ export const NavBar = React.memo(function NavBar({ menuOpen, onCloseMenu }: NavB
 
   const navItems = [
     { label: 'Trang Chủ', path: '/' },
-    { 
+    {
       label: 'Giới Thiệu', path: '/gioi-thieu',
       children: [
         { label: 'Cơ cấu tổ chức', path: '/gioi-thieu/co-cau-to-chuc' },
@@ -117,14 +117,14 @@ export const NavBar = React.memo(function NavBar({ menuOpen, onCloseMenu }: NavB
       ]
     },
     { label: 'Thông báo', path: '/thong-bao' },
-    { 
+    {
       label: 'Tuyển Sinh', path: '/tuyen-sinh',
       children: [
         { label: 'ĐH chính quy', path: '/tuyen-sinh' },
         { label: 'Hoạt động tuyển sinh', path: '/tuyen-sinh' }
       ]
     },
-    { 
+    {
       label: 'Đào Tạo', path: '/dao-tao',
       children: [
         { label: 'Chương trình', path: '/dao-tao' },
@@ -134,7 +134,7 @@ export const NavBar = React.memo(function NavBar({ menuOpen, onCloseMenu }: NavB
         { label: 'Lịch thi', path: '/dao-tao' }
       ]
     },
-    { 
+    {
       label: 'Nghiên cứu KH', path: '/nghien-cuu',
       children: [
         { label: 'Hoạt động khoa học', path: '/nghien-cuu' },
@@ -143,14 +143,14 @@ export const NavBar = React.memo(function NavBar({ menuOpen, onCloseMenu }: NavB
         { label: 'Hội nghị - hội thảo', path: '/nghien-cuu' }
       ]
     },
-    { 
+    {
       label: 'Hợp Tác', path: '/hop-tac',
       children: [
         { label: 'Trong nước', path: '/hop-tac' },
         { label: 'Quốc tế', path: '/hop-tac' }
       ]
     },
-    { 
+    {
       label: 'Sinh Viên', path: '/hoat-dong'
     },
   ];
@@ -178,10 +178,9 @@ export const NavBar = React.memo(function NavBar({ menuOpen, onCloseMenu }: NavB
                 <NavLink
                   to={item.path}
                   className={({ isActive }) =>
-                    `flex items-center gap-1 px-3.5 lg:px-4 py-3.5 no-underline transition-colors border-b-2 font-['Inter'] text-xs lg:text-[13px] uppercase tracking-wide whitespace-nowrap focus:outline-none ${
-                      isActive
-                        ? 'border-[#c8102e] text-[#c8102e] font-bold bg-red-50/40'
-                        : 'border-transparent text-slate-700 font-medium hover:text-[#1a428a] hover:bg-slate-50'
+                    `flex items-center gap-1 px-3.5 lg:px-4 py-3.5 no-underline transition-colors border-b-2 font-['Inter'] text-xs lg:text-[13px] uppercase tracking-wide whitespace-nowrap focus:outline-none ${isActive
+                      ? 'border-[#c8102e] text-[#c8102e] font-bold bg-red-50/40'
+                      : 'border-transparent text-slate-700 font-medium hover:text-[#1a428a] hover:bg-slate-50'
                     }`
                   }
                 >
@@ -275,10 +274,9 @@ export const NavBar = React.memo(function NavBar({ menuOpen, onCloseMenu }: NavB
                             }
                           }}
                           className={({ isActive }) =>
-                            `flex items-center flex-1 justify-between px-4 py-3.5 rounded-xl no-underline font-['Inter'] text-sm transition-all min-h-[44px] ${
-                              isActive && !hasChildren
-                                ? 'bg-[#c8102e] text-white font-bold shadow-sm'
-                                : 'text-slate-700 font-medium hover:bg-slate-100 active:bg-slate-200'
+                            `flex items-center flex-1 justify-between px-4 py-3.5 rounded-xl no-underline font-['Inter'] text-sm transition-all min-h-[44px] ${isActive && !hasChildren
+                              ? 'bg-[#c8102e] text-white font-bold shadow-sm'
+                              : 'text-slate-700 font-medium hover:bg-slate-100 active:bg-slate-200'
                             } ${isOpen ? 'bg-slate-100 text-[#1a428a] font-bold' : ''}`
                           }
                         >
@@ -294,7 +292,7 @@ export const NavBar = React.memo(function NavBar({ menuOpen, onCloseMenu }: NavB
                           )}
                         </NavLink>
                       </div>
-                      
+
                       {/* Mobile Accordion */}
                       {hasChildren && isOpen && (
                         <ul className="list-none pl-4 pr-0 py-2 m-0 flex flex-col gap-1 border-l-2 border-slate-100 ml-4 mt-1">
