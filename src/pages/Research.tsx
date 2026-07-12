@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import educationData from '../data/education.json';
+import newsData from '../data/news.json';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -18,22 +18,42 @@ const cleanTitle = (title: string) => {
 
 const ITEMS_PER_PAGE = 8;
 
-const sidebarLinks = [
-  { label: 'Tất cả bài viết', path: '/dao-tao' },
-  { label: 'Chương trình đào tạo', path: '/dao-tao' },
-  { label: 'Chuẩn đầu ra', path: '/chuan-dau-ra' },
-  { label: 'Quy chế - Quy định', path: '/dao-tao' },
-  { label: 'Thời khóa biểu', path: '/dao-tao' },
-  { label: 'Tra cứu điểm thi', path: '/dao-tao' },
-  { label: 'Lịch thi', path: '/dao-tao' },
+const researchKeywords = [
+  '/san-pham/',
+  '/hoat-dong-khoa-hoc/',
+  '/ly-lich-khoa-hoc/',
+  '/cong-trinh-khoa-hoc/',
+  '/hoi-nghi-hoi-thao/',
+  'nghien-cuu',
+  'khoa-hoc',
+  'hoi-thao',
 ];
 
-export default function Education() {
+const sidebarLinks = [
+  { label: 'Hoạt động khoa học', path: '/nghien-cuu' },
+  { label: 'Lý lịch khoa học', path: '/nghien-cuu' },
+  { label: 'Công trình khoa học', path: '/nghien-cuu' },
+  { label: 'Hội nghị - hội thảo', path: '/nghien-cuu' },
+];
+
+export default function Research() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(educationData.length / ITEMS_PER_PAGE);
+  // Filter news items related to research
+  const researchItems = useMemo(() => {
+    return newsData.filter(item => {
+      const link = (item.link || '').toLowerCase();
+      const title = (item.title || '').toLowerCase();
+      return researchKeywords.some(kw => link.includes(kw) || title.includes(kw));
+    });
+  }, []);
+
+  // If filtering yields too few results, show all news as fallback
+  const items = researchItems.length >= 4 ? researchItems : newsData.slice(0, 16);
+
+  const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedItems = educationData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const paginatedItems = items.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
     <div className="flex flex-col items-start w-full font-['Inter']">
@@ -41,7 +61,7 @@ export default function Education() {
       <div className="flex gap-2 items-center px-[20px] py-[20px] w-full lg:px-[80px]">
         <Link to="/" className="font-medium text-[#0d4d99] text-[14px] no-underline hover:underline">Trang chủ</Link>
         <span className="text-[#666] text-[12px]">&gt;</span>
-        <p className="font-normal text-[#666] text-[14px] m-0">Đào tạo</p>
+        <p className="font-normal text-[#666] text-[14px] m-0">Nghiên cứu khoa học</p>
       </div>
 
       {/* Main Content */}
@@ -50,7 +70,7 @@ export default function Education() {
         <div className="flex flex-1 flex-col gap-8 items-start w-full">
           <div className="flex items-center w-full">
             <h2 className="font-bold text-[#c8102e] text-[24px] uppercase m-0">
-              Đào tạo
+              Nghiên cứu khoa học
             </h2>
           </div>
 
@@ -70,8 +90,8 @@ export default function Education() {
                         className="absolute inset-0 object-cover size-full transition-transform duration-500 group-hover:scale-105 pointer-events-none"
                         src={item.image || placeholderImg}
                       />
-                      <span className="absolute top-3 left-3 bg-[#1a428a] text-white text-[11px] font-semibold px-2.5 py-1 rounded">
-                        Đào tạo
+                      <span className="absolute top-3 left-3 bg-[#c8102e] text-white text-[11px] font-semibold px-2.5 py-1 rounded">
+                        Nghiên cứu KH
                       </span>
                     </div>
                     <div className="flex flex-col gap-2 p-4">
@@ -121,7 +141,7 @@ export default function Education() {
           {/* Menu con */}
           <div className="bg-[#f5f7fa] flex flex-col gap-4 items-start p-6 rounded-xl w-full">
             <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0 border-l-4 border-[#c8102e] pl-2.5">
-              Chuyên mục Đào tạo
+              Nghiên cứu khoa học
             </p>
             <div className="flex flex-col gap-3 w-full">
               {sidebarLinks.map((link, idx) => (
@@ -137,13 +157,13 @@ export default function Education() {
             </div>
           </div>
 
-          {/* Bài viết mới nhất */}
+          {/* Bài viết liên quan */}
           <div className="bg-[#f5f7fa] flex flex-col gap-4 items-start p-6 rounded-xl w-full">
             <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0 border-l-4 border-[#c8102e] pl-2.5">
               Bài viết mới nhất
             </p>
             <div className="flex flex-col gap-4 w-full">
-              {educationData.slice(0, 4).map((item, idx) => (
+              {items.slice(0, 4).map((item, idx) => (
                 <Link to={`/tin-tuc/${getSlug(item.link)}`} key={idx} className="flex gap-3 items-start cursor-pointer group no-underline">
                   <div className="w-20 h-[52px] relative rounded-md overflow-hidden shrink-0 bg-gray-100">
                     <img alt={item.title} className="absolute inset-0 object-cover size-full" src={item.image || placeholderImg} />

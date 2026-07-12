@@ -324,7 +324,7 @@ export const ActivitiesSection = React.memo(function ActivitiesSection() {
     link: "#"
   }, []);
 
-  const otherActs = useMemo(() => studentsData.slice(1, 7), []);
+  const otherActs = useMemo(() => studentsData.slice(1, 5), []);
 
   return (
     <section aria-label="Hoạt động sinh viên và thư viện" className="bg-white px-4 sm:px-6 py-6 md:py-8 w-full">

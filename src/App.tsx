@@ -22,6 +22,7 @@ import NotFound from './pages/NotFound';
 import Cooperation from './pages/Cooperation';
 import Organization from './pages/Organization';
 import Outcomes from './pages/Outcomes';
+import Research from './pages/Research';
 
 export default function App() {
   return (
@@ -53,6 +54,9 @@ export default function App() {
 
           {/* Hợp tác */}
           <Route path="hop-tac" element={<Cooperation />} />
+
+          {/* Nghiên cứu khoa học */}
+          <Route path="nghien-cuu" element={<Research />} />
 
           {/* Hoạt động sinh viên */}
           <Route path="hoat-dong" element={<Activities />} />
