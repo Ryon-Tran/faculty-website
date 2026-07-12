@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Phone } from 'lucide-react';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -57,7 +58,9 @@ export default function AdmissionsList() {
           <div className="bg-[#c8102e] flex flex-col gap-3 p-6 rounded-xl w-full">
             <p className="font-bold text-white text-[18px] m-0">Tư vấn tuyển sinh</p>
             <p className="font-normal text-white/80 text-[14px] m-0">Liên hệ ngay để được hỗ trợ</p>
-            <p className="font-bold text-white text-[16px] m-0">📞 0236 3733 290</p>
+            <p className="font-bold text-white text-[16px] m-0 flex items-center gap-1.5">
+              <Phone className="size-4 text-white" /> 0236 3733 290
+            </p>
           </div>
           <div className="bg-[#f5f7fa] flex flex-col gap-4 items-start p-6 rounded-xl w-full">
             <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0">Liên kết nhanh</p>

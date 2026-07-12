@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { Calendar, User } from 'lucide-react';
 import newsData from '../data/news.json';
 import notificationsData from '../data/notifications.json';
 import admissionsData from '../data/admissions.json';
@@ -78,8 +79,8 @@ export default function NewsDetail() {
               {cleanTitle}
             </h1>
             <div className="flex gap-[16px] items-center text-[#808080] text-[13px]">
-              <span>📅 {article.date}</span>
-              <span>👤 Ban Biên Tập</span>
+              <span className="flex items-center gap-1"><Calendar className="size-4" /> {article.date}</span>
+              <span className="flex items-center gap-1"><User className="size-4" /> Ban Biên Tập</span>
             </div>
           </div>
 

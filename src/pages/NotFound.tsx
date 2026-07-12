@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Search } from 'lucide-react';
 
 export default function NotFoundPage() {
   return (
@@ -15,7 +16,7 @@ export default function NotFoundPage() {
       </div>
       <div className="flex flex-col gap-8 items-center w-full max-w-[720px]">
         <div className="bg-[#f3f4f6] border border-[#e5e7eb] flex gap-[12px] items-center p-[16px] rounded-[8px] w-full max-w-[480px]">
-          <span className="text-[20px]">🔍</span>
+          <Search className="size-5 text-slate-400 shrink-0" />
           <input type="text" placeholder="Nhập từ khóa tìm kiếm..." className="flex-1 bg-transparent border-none outline-none font-normal text-[#808080] text-[16px]" />
         </div>
         <Link to="/" className="bg-[#1a428a] hover:bg-[#0d4d99] transition-colors px-[32px] py-[14px] rounded-[8px] no-underline">

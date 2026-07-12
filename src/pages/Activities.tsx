@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Inbox } from 'lucide-react';
 import studentsData from '../data/students.json';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
@@ -91,8 +92,8 @@ export default function Activities() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center w-full py-[60px] text-gray-500">
-              <span className="text-[40px]">📭</span>
+            <div className="flex flex-col items-center justify-center w-full py-[60px] text-slate-400">
+              <Inbox className="size-12 mb-3 text-slate-300" />
               <p className="mt-2 text-[15px] font-medium">Không tìm thấy hoạt động nào thuộc chuyên mục này.</p>
             </div>
           )}

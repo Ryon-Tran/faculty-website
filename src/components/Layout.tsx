@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Outlet, NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
+import { MapPin, Phone, Mail, X } from 'lucide-react';
 
 const imgUniversity = "/logo.png";
 
@@ -250,7 +251,7 @@ export const NavBar = React.memo(function NavBar({ menuOpen, onCloseMenu }: NavB
                   aria-label="Đóng menu"
                   className="size-9 flex items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-red-600 active:scale-95 transition-all"
                 >
-                  ✕
+                  <X className="size-4" />
                 </button>
               </div>
 
@@ -317,13 +318,15 @@ export const NavBar = React.memo(function NavBar({ menuOpen, onCloseMenu }: NavB
 
             {/* Drawer Footer */}
             <div className="p-5 border-t border-slate-100 bg-slate-50 flex flex-col gap-3 text-xs text-slate-500 mt-auto">
-              <p className="m-0 font-semibold text-slate-700">📍 Liên hệ tư vấn</p>
+              <p className="m-0 font-semibold text-slate-700 flex items-center gap-1.5">
+                <MapPin className="size-3.5 text-[#1a428a]" /> Liên hệ tư vấn
+              </p>
               <p className="m-0">459 Tôn Đức Thắng, Liên Chiểu, Đà Nẵng</p>
               <a
                 href="tel:02363733290"
                 className="inline-flex items-center justify-center gap-2 h-11 bg-[#1a428a] text-white rounded-xl font-semibold no-underline hover:bg-[#133166] transition-colors"
               >
-                📞 Gọi hotline Ban Tư vấn
+                <Phone className="size-4" /> Gọi hotline Ban Tư vấn
               </a>
             </div>
           </aside>
@@ -357,15 +360,15 @@ export const Footer = React.memo(function Footer() {
             </div>
             <address className="flex flex-col gap-2.5 text-slate-300 not-italic text-sm leading-relaxed mt-1">
               <p className="m-0 flex items-start gap-2.5">
-                <span className="shrink-0 text-base">📍</span>
+                <span className="shrink-0 text-base flex mt-0.5"><MapPin className="size-4 text-[#ffcc00]" /></span>
                 <span>459 Tôn Đức Thắng, Phường Hòa Khánh Nam, Quận Liên Chiểu, TP. Đà Nẵng</span>
               </p>
               <p className="m-0 flex items-center gap-2.5">
-                <span className="shrink-0 text-base">📞</span>
+                <span className="shrink-0 text-base flex"><Phone className="size-4 text-[#ffcc00]" /></span>
                 <a href="tel:02363733290" className="text-white hover:underline transition-all no-underline">+84 0236 3733 290</a>
               </p>
               <p className="m-0 flex items-center gap-2.5">
-                <span className="shrink-0 text-base">✉️</span>
+                <span className="shrink-0 text-base flex"><Mail className="size-4 text-[#ffcc00]" /></span>
                 <a href="mailto:sdct@ued.udn.vn" className="text-white hover:underline transition-all no-underline">sdct@ued.udn.vn</a>
               </p>
             </address>

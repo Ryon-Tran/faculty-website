@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
+import { Calendar, User, Phone } from 'lucide-react';
 import admissionsData from '../data/admissions.json';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
@@ -26,7 +27,10 @@ export default function AdmissionsDetail() {
           <h1 className="font-bold text-[#111] text-[28px] leading-[1.4] m-0">
             Tuyển sinh ngành Sư phạm Lịch sử - Khoa Sử - Địa - Chính trị, Trường ĐH Sư phạm, ĐH Đà Nẵng 2026
           </h1>
-          <p className="font-normal text-[#808080] text-[13px] m-0">📅 30/06/2026 · 👤 Phòng Đào tạo</p>
+          <div className="flex gap-[16px] items-center text-[#808080] text-[13px] m-0">
+            <span className="flex items-center gap-1"><Calendar className="size-4" /> 30/06/2026</span>
+            <span className="flex items-center gap-1"><User className="size-4" /> Phòng Đào tạo</span>
+          </div>
 
           <div className="relative rounded-[12px] w-full overflow-hidden flex justify-center bg-gray-50">
             <img alt="" className="max-w-full h-auto max-h-[600px] object-contain rounded-[12px]" src={placeholderImg} />
@@ -139,7 +143,9 @@ export default function AdmissionsDetail() {
           </div>
           <div className="bg-[#c8102e] flex flex-col gap-[12px] p-[24px] rounded-[12px] w-full">
             <p className="font-bold text-white text-[18px] m-0">Hotline tuyển sinh</p>
-            <p className="font-bold text-white text-[24px] m-0">📞 0236 3733 290</p>
+            <p className="font-bold text-white text-[24px] m-0 flex items-center gap-1.5">
+              <Phone className="size-5 text-white" /> 0236 3733 290
+            </p>
           </div>
         </aside>
       </div>
