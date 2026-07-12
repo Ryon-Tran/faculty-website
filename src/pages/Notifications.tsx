@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import notificationsData from '../data/notifications.json';
-import { AppSidebar } from '../components/ui/AppSidebar';
+
 
 const getCategory = (link: string) => {
   if (link.includes('/dao-tao/')) return 'Đào tạo';
@@ -71,20 +71,21 @@ export default function Notifications() {
               {paginatedNotifications.map((item, idx) => {
                 // Pin the first 2 items of the entire list for visual effect
                 const isPinned = activeCategory === 'Tất cả' && idx < 2;
+                const cleanTitle = item.title.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '').trim();
                 return (
                   <Link to={`/tin-tuc/${getSlug(item.link)}`} key={idx} className="border-b border-[#e5e7eb] flex flex-col sm:flex-row gap-4 sm:gap-4 items-start py-4 w-full cursor-pointer hover:bg-[#f5f7fa] transition-colors px-3 -mx-3 rounded-[8px] no-underline">
-                    <div className="flex flex-row sm:flex-col items-center shrink-0 w-auto sm:w-[48px] gap-2 sm:gap-0">
-                      <div className={`flex items-center justify-center rounded-[4px] size-[40px] ${isPinned ? 'bg-[#c8102e]' : 'bg-[#1a428a]'}`}>
-                        <span className="text-white text-[14px]">{isPinned ? '📌' : '📋'}</span>
+                    <div className="flex flex-row sm:flex-col items-center shrink-0 w-auto sm:w-[120px] gap-2 sm:gap-0">
+                      <div className={`relative flex items-center justify-center rounded-[4px] w-full aspect-video overflow-hidden bg-gray-100 ${isPinned ? 'border-2 border-[#c8102e]' : ''}`}>
+                        <img alt={cleanTitle} className="absolute inset-0 object-cover size-full" src={item.image || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000"} />
                       </div>
                     </div>
                     <div className="flex flex-1 flex-col gap-[4px]">
-                      <div className="flex gap-[8px] items-center">
+                      <div className="flex gap-[8px] items-center mb-1">
                         {isPinned && <span className="bg-[#c8102e] text-white text-[10px] font-bold px-[6px] py-[2px] rounded-[3px]">GHIM</span>}
                         <span className="bg-[#f5f7fa] text-[#1a428a] text-[11px] font-semibold px-[8px] py-[2px] rounded-[3px]">{getCategory(item.link)}</span>
                       </div>
-                      <p className="font-semibold text-[#111] text-[15px] m-0 hover:text-[#1a428a] transition-colors">{item.title}</p>
-                      <p className="font-normal text-[#808080] text-[12px] m-0">{item.date}</p>
+                      <p className="font-semibold text-[#111] text-[15px] m-0 hover:text-[#1a428a] transition-colors">{cleanTitle}</p>
+                      <p className="font-normal text-[#808080] text-[12px] m-0 mt-1">{item.date}</p>
                     </div>
                   </Link>
                 );
@@ -118,27 +119,6 @@ export default function Notifications() {
             </div>
           )}
         </div>
-
-        <aside className="flex flex-col gap-[24px] items-start w-full lg:w-[300px]">
-          <div className="bg-[#f5f7fa] flex flex-col gap-[16px] items-start p-[24px] rounded-[12px] w-full">
-            <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0">Phân loại</p>
-            <div className="flex flex-col gap-[12px] w-full">
-              {['Đào tạo', 'Sinh viên', 'Tuyển sinh', 'Hợp tác'].map((cat, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => handleCategoryChange(cat)}
-                  className={`flex gap-[8px] items-center cursor-pointer hover:underline ${
-                    activeCategory === cat ? 'text-[#c8102e] font-bold' : 'text-[#0d4d99]'
-                  }`}
-                >
-                  <span className="text-[12px]">&gt;</span>
-                  <p className="font-medium text-[14px] m-0">{cat}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <AppSidebar />
-        </aside>
       </div>
     </div>
   );

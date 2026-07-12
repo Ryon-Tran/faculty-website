@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppSidebar } from '../components/ui/AppSidebar';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -63,7 +62,7 @@ export default function AdmissionsList() {
           <div className="bg-[#f5f7fa] flex flex-col gap-4 items-start p-6 rounded-xl w-full">
             <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0">Liên kết nhanh</p>
             <div className="flex flex-col gap-3 w-full">
-              {['Hướng dẫn đăng ký', 'Điểm chuẩn 2025', 'Chương trình đào tạo', 'Học bổng'].map((link, idx) => (
+              {['Hướng dẫn đăng ký', 'Điểm chuẩn 2026', 'Chương trình đào tạo', 'Học bổng'].map((link, idx) => (
                 <div key={idx} className="flex gap-2 items-center cursor-pointer hover:underline text-[#0d4d99]">
                   <span className="text-[12px]">&gt;</span>
                   <p className="font-medium text-[14px] m-0">{link}</p>
@@ -71,7 +70,6 @@ export default function AdmissionsList() {
               ))}
             </div>
           </div>
-          <AppSidebar />
         </aside>
       </div>
     </div>

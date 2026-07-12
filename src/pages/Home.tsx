@@ -42,6 +42,27 @@ const getDayAndMonth = (dateStr: string) => {
   return { day, month };
 };
 
+const cleanTitle = (title: string) => {
+  if (!title) return '';
+  return title.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '').replace(/^[-\s]+/, '').trim();
+};
+
+const ViewMoreButton = ({ to, text = "XEM THÊM" }: { to?: string; text?: string }) => {
+  const content = (
+    <>
+      <span>{text}</span>
+      <svg className="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </>
+  );
+
+  const className = "group inline-flex items-center justify-center gap-1.5 px-6 py-2.5 rounded-full font-['Inter'] font-bold text-[12px] sm:text-[13px] uppercase text-[#1a428a] bg-slate-100/80 hover:bg-[#1a428a] hover:text-white transition-all duration-300 no-underline shadow-sm hover:shadow-md";
+
+  if (to) return <Link to={to} className={className}>{content}</Link>;
+  return <span className={className}>{content}</span>;
+};
+
 /* --- 1. HERO BANNER --- */
 export const HeroBanner = React.memo(function HeroBanner() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -49,7 +70,7 @@ export const HeroBanner = React.memo(function HeroBanner() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
-    }, 5500);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
@@ -58,43 +79,42 @@ export const HeroBanner = React.memo(function HeroBanner() {
   }, []);
 
   return (
-    <section aria-label="Banner nổi bật" className="h-[280px] sm:h-[360px] md:h-[420px] relative w-full bg-slate-900 overflow-hidden rounded-none sm:rounded-b-3xl shadow-md">
+    <section aria-label="Banner nổi bật" className="h-[400px] sm:h-[500px] md:h-[650px] relative w-[100vw] ml-[calc(50%-50vw)] bg-slate-950 overflow-hidden shadow-2xl group">
       {sliderImages.map((src, idx) => (
         <div
           key={idx}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
         >
           <img
             alt={`Banner trình chiếu ${idx + 1}`}
             className="size-full object-cover"
             src={src}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         </div>
       ))}
 
       {/* Hero Title Overlay */}
-      <div className="absolute inset-x-0 bottom-12 z-20 px-6 max-w-4xl mx-auto text-center flex flex-col items-center gap-3">
-        <span className="bg-[#c8102e] text-white text-[11px] sm:text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-sm animate-fade-in">
-          ★ Tuyển sinh Đại học & Sau Đại học 2026
-        </span>
-        <h2 className="font-['Inter'] font-black text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-tight m-0 drop-shadow-md tracking-tight">
-          CHẤT LƯỢNG - HIỆN ĐẠI - HỘI NHẬP
-        </h2>
+      <div className="absolute inset-x-0 bottom-[80px] sm:bottom-[100px] z-20 px-6 max-w-4xl mx-auto flex flex-col items-center text-center gap-3 sm:gap-4">
+        <div className="animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
+          <span className="bg-[#c8102e]/90 backdrop-blur-sm border border-white/20 text-white text-[11px] sm:text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md">
+            ★ Tuyển sinh Đại học & Sau Đại học 2026
+          </span>
+        </div>
+
+
       </div>
 
       {/* Slide Pagination Bullets */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2.5 z-30">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-30">
         {sliderImages.map((_, idx) => (
           <button
             key={idx}
             onClick={() => handleSelectSlide(idx)}
             aria-label={`Chuyển đến slide ${idx + 1}`}
-            className={`transition-all duration-300 rounded-full border-none cursor-pointer p-0 focus:outline-none focus:ring-2 focus:ring-white ${
-              idx === currentSlide ? 'w-8 h-2.5 bg-[#c8102e]' : 'size-2.5 bg-white/60 hover:bg-white'
-            }`}
+            className={`transition-all duration-300 rounded-full border-none cursor-pointer p-0 focus:outline-none focus:ring-2 focus:ring-white ${idx === currentSlide ? 'w-8 h-2.5 bg-[#c8102e]' : 'size-2.5 bg-white/60 hover:bg-white'
+              }`}
           />
         ))}
       </div>
@@ -109,15 +129,12 @@ export const NewsSection = React.memo(function NewsSection() {
   const featuredNews = useMemo(() => newsData.slice(0, 8), []);
 
   return (
-    <section aria-label="Tin tức nổi bật" className="flex flex-col gap-6 px-4 sm:px-6 py-10 md:py-14 w-full max-w-5xl mx-auto">
+    <section aria-label="Tin tức nổi bật" className="flex flex-col gap-6 px-4 sm:px-6 py-6 md:py-8 w-full max-w-7xl mx-auto">
       <div className="flex justify-between items-end border-b-2 border-slate-100 pb-3">
         <div className="flex flex-col gap-1.5">
           <h2 className="font-['Inter'] font-bold text-[#003366] text-2xl md:text-3xl uppercase tracking-tight m-0">
             TIN TỨC & SỰ KIỆN
           </h2>
-          <Link to="/tin-tuc" className="font-['Inter'] font-bold text-[#c8102e] text-sm uppercase hover:underline">
-            TẤT CẢ BÀI VIẾT
-          </Link>
         </div>
       </div>
 
@@ -138,13 +155,17 @@ export const NewsSection = React.memo(function NewsSection() {
               />
               <CardHeader>
                 <span className="font-['Inter'] text-[11px] font-medium text-slate-400 flex items-center gap-1.5">
-                  🕒 {item.date || '10/07/2026'}
+                  {item.date || '10/07/2026'}
                 </span>
-                <CardTitle className="text-sm sm:text-base">{item.title}</CardTitle>
+                <CardTitle className="text-sm sm:text-base">{cleanTitle(item.title)}</CardTitle>
               </CardHeader>
             </Card>
           </Link>
         ))}
+      </div>
+
+      <div className="flex justify-center mt-6">
+        <ViewMoreButton to="/tin-tuc" text="XEM THÊM" />
       </div>
     </section>
   );
@@ -152,13 +173,48 @@ export const NewsSection = React.memo(function NewsSection() {
 
 NewsSection.displayName = 'NewsSection';
 
-/* --- 3. ADMISSIONS SECTION (List & Video) --- */
+/* --- 3. ADMISSIONS SECTION (List & Gallery) --- */
 export const AdmissionsSection = React.memo(function AdmissionsSection() {
-  const topAdmissions = useMemo(() => admissionsData.slice(0, 5), []);
+  const topAdmissions = useMemo(() => admissionsData.slice(0, 4), []);
+  const featuredImages = useMemo(() => [
+    "https://sdct.ued.udn.vn/uploads/slider/z6714115621939_547ee9dba18f400e2f548ac4d73083fa.jpg",
+    "https://sdct.ued.udn.vn/uploads/slider/z6714115623898_f6cf88be44d2b708a757d8523a6f9493.jpg",
+    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000",
+    "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1000",
+    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1000"
+  ], []);
+
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  }, [isDragging, startX, scrollLeft]);
 
   return (
-    <section aria-label="Thông tin tuyển sinh và video" className="bg-slate-50 px-4 sm:px-6 py-12 md:py-16 w-full">
-      <div className="max-w-[1100px] mx-auto flex flex-col lg:flex-row gap-12 items-start">
+    <section aria-label="Thông tin tuyển sinh và hình ảnh" className="bg-slate-50 px-4 sm:px-6 py-6 md:py-8 w-full">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 items-start">
         {/* Left Col: Admissions Notices */}
         <div className="flex-1 flex flex-col gap-6 w-full">
           <div className="mb-2">
@@ -188,7 +244,7 @@ export const AdmissionsSection = React.memo(function AdmissionsSection() {
                   </div>
                   <div className="flex flex-col gap-1.5 flex-1 min-w-0 pt-0.5">
                     <h3 className="font-['Inter'] font-bold text-[15px] sm:text-base text-slate-800 group-hover:text-[#1a428a] transition-colors leading-snug m-0">
-                      {item.title}
+                      {cleanTitle(item.title)}
                     </h3>
                     <p className="font-['Inter'] font-normal text-[13px] sm:text-sm text-slate-500 line-clamp-2 m-0">
                       {item.description || "Bạn đam mê khám phá thế giới, đọc mọi hiện tượng, con người, và muốn truyền cảm hứng..."}
@@ -200,9 +256,7 @@ export const AdmissionsSection = React.memo(function AdmissionsSection() {
           </div>
 
           <div className="flex justify-center mt-3">
-            <Link to="/tuyen-sinh" className="font-['Inter'] font-bold text-[#1a428a] text-[13px] uppercase hover:underline border-b border-transparent hover:border-[#1a428a] pb-0.5">
-              XEM THÊM
-            </Link>
+            <ViewMoreButton to="/tuyen-sinh" text="XEM THÊM CHUYÊN MỤC" />
           </div>
         </div>
 
@@ -211,53 +265,47 @@ export const AdmissionsSection = React.memo(function AdmissionsSection() {
           <div className="mb-2 flex items-center gap-3">
             <div className="w-1.5 h-6 bg-[#1a428a]"></div>
             <h2 className="font-['Inter'] font-bold text-[#1a428a] text-2xl uppercase tracking-tight m-0">
-              VIDEO NỔI BẬT
+              VIDEO & HÌNH ẢNH
             </h2>
           </div>
 
           {/* Main Video Box */}
-          <div className="aspect-[16/10] relative rounded-xl overflow-hidden shadow-sm group cursor-pointer bg-slate-900 border border-slate-200/60">
+          <Link to="/video" className="aspect-[16/10] relative rounded-xl overflow-hidden shadow-sm group cursor-pointer bg-slate-900 border border-slate-200/60 transition-all duration-300 block no-underline">
             <img
               alt="Video nổi bật Khoa Sử Địa Chính Trị"
-              className="absolute inset-0 object-cover size-full transition-transform duration-700 group-hover:scale-105 opacity-90"
+              className="absolute inset-0 object-cover size-full transition-transform duration-700 group-hover:scale-105 opacity-90 pointer-events-none"
               src={placeholderImg}
             />
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors flex items-center justify-center pointer-events-none">
               <div className="size-14 rounded-full bg-[#c8102e]/90 text-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110 backdrop-blur-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" className="ml-1">
                   <polygon points="5 3 19 12 5 21 5 3"></polygon>
                 </svg>
               </div>
             </div>
-          </div>
+          </Link>
 
-          {/* Mini Thumbnails */}
-          <div className="grid grid-cols-3 gap-3 -mt-2">
-            {[1, 2, 3].map((i) => (
+          {/* Mini Thumbnails (Drag to Scroll) */}
+          <div
+            ref={scrollRef}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            className={`flex gap-3 overflow-x-auto pb-3 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] select-none ${isDragging ? 'cursor-grabbing snap-none' : 'cursor-grab'}`}
+          >
+            {featuredImages.map((src, idx) => (
               <div
-                key={i}
-                className="aspect-[4/3] relative rounded-lg overflow-hidden shadow-sm group cursor-pointer bg-slate-800 border border-slate-200/60"
+                key={idx}
+                className="w-[120px] shrink-0 aspect-[4/3] relative rounded-lg overflow-hidden shadow-sm border border-slate-200 transition-all duration-300 snap-center group pointer-events-none"
               >
                 <img
-                  alt={`Mini video ${i}`}
-                  className="absolute inset-0 object-cover size-full transition-transform duration-500 group-hover:scale-110 opacity-90"
-                  src={placeholderImg}
+                  alt={`Thumbnail ${idx + 1}`}
+                  className="absolute inset-0 object-cover size-full transition-transform duration-500 group-hover:scale-110 pointer-events-none"
+                  src={src}
                 />
-                <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                  <div className="size-8 rounded-full bg-[#c8102e]/90 text-white flex items-center justify-center shadow-sm backdrop-blur-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="white" className="ml-0.5">
-                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                  </div>
-                </div>
               </div>
             ))}
-          </div>
-
-          <div className="flex justify-end mt-2">
-            <Link to="/video" className="font-['Inter'] font-bold text-[#1a428a] text-[13px] uppercase hover:underline border-b border-transparent hover:border-[#1a428a] pb-0.5">
-              XEM THÊM
-            </Link>
           </div>
         </div>
       </div>
@@ -266,9 +314,6 @@ export const AdmissionsSection = React.memo(function AdmissionsSection() {
 });
 
 AdmissionsSection.displayName = 'AdmissionsSection';
-
-
-
 
 /* --- 5. STUDENT ACTIVITIES & FACES SECTION --- */
 export const ActivitiesSection = React.memo(function ActivitiesSection() {
@@ -279,11 +324,11 @@ export const ActivitiesSection = React.memo(function ActivitiesSection() {
     link: "#"
   }, []);
 
-  const otherActs = useMemo(() => studentsData.slice(1, 5), []);
+  const otherActs = useMemo(() => studentsData.slice(1, 7), []);
 
   return (
-    <section aria-label="Hoạt động sinh viên và thư viện" className="bg-white px-4 sm:px-6 py-12 md:py-16 w-full">
-      <div className="max-w-[1100px] mx-auto flex flex-col lg:flex-row gap-12 items-start">
+    <section aria-label="Hoạt động sinh viên và thư viện" className="bg-white px-4 sm:px-6 py-6 md:py-8 w-full">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 items-start">
         {/* Featured Activity Card */}
         <div className="flex-1 flex flex-col gap-6 w-full">
           <div className="mb-2">
@@ -298,12 +343,10 @@ export const ActivitiesSection = React.memo(function ActivitiesSection() {
                 <img src={featuredAct.image || placeholderImg} alt={featuredAct.title} className="absolute inset-0 size-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="p-6 flex flex-col">
-                <h3 className="font-['Inter'] text-[18px] sm:text-[20px] font-bold text-slate-900 group-hover:text-[#1a428a] transition-colors leading-tight m-0">{featuredAct.title}</h3>
+                <h3 className="font-['Inter'] text-[18px] sm:text-[20px] font-bold text-slate-900 group-hover:text-[#1a428a] transition-colors leading-tight m-0">{cleanTitle(featuredAct.title)}</h3>
                 <p className="font-['Inter'] text-[14px] text-slate-500 mt-3 line-clamp-3 leading-relaxed m-0">{featuredAct.description}</p>
                 <div className="flex justify-end mt-5">
-                  <span className="font-['Inter'] font-bold text-[#1a428a] text-[13px] uppercase hover:underline border-b border-transparent group-hover:border-[#1a428a] pb-0.5">
-                    XEM THÊM
-                  </span>
+                  <ViewMoreButton text="XEM CHI TIẾT" />
                 </div>
               </div>
             </div>
@@ -313,7 +356,6 @@ export const ActivitiesSection = React.memo(function ActivitiesSection() {
         {/* Photo Gallery Grid */}
         <div className="w-full lg:w-[480px] shrink-0 flex flex-col gap-6">
           <div className="mb-2 flex items-center gap-3">
-            <div className="w-1.5 h-6 bg-[#1a428a]"></div>
             <h2 className="font-['Inter'] font-bold text-[#c8102e] text-2xl uppercase tracking-tight m-0">
               THƯ VIỆN ẢNH
             </h2>
@@ -327,7 +369,7 @@ export const ActivitiesSection = React.memo(function ActivitiesSection() {
                     <img src={item.image || placeholderImg} alt={item.title} className="absolute inset-0 size-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="p-3 bg-[#003366] text-white font-['Inter'] font-medium text-[12px] text-center line-clamp-1 group-hover:bg-[#1a428a] transition-colors w-full m-0">
-                    {item.title}
+                    {cleanTitle(item.title)}
                   </div>
                 </div>
               </Link>
@@ -346,7 +388,7 @@ export const FacesSection = React.memo(function FacesSection() {
   const studentFaces = useMemo(() => studentsData.slice(5, 9), []);
 
   return (
-    <section aria-label="Gương mặt sinh viên tiêu biểu" className="px-4 sm:px-6 py-12 md:py-16 w-full max-w-5xl mx-auto">
+    <section aria-label="Gương mặt sinh viên tiêu biểu" className="px-4 sm:px-6 py-6 md:py-8 w-full max-w-7xl mx-auto">
       <SectionHeader
         title="Gương mặt sinh viên điển hình"
         accentColor="red"
@@ -366,7 +408,7 @@ export const FacesSection = React.memo(function FacesSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4 text-white">
               <span className="text-yellow-400 font-bold text-[11px] uppercase tracking-wider mb-0.5">Tiêu biểu 2026</span>
-              <span className="font-['Inter'] font-bold text-sm sm:text-base leading-snug line-clamp-2">{item.title}</span>
+              <span className="font-['Inter'] font-bold text-sm sm:text-base leading-snug line-clamp-2">{cleanTitle(item.title)}</span>
             </div>
           </Link>
         ))}
@@ -380,7 +422,7 @@ FacesSection.displayName = 'FacesSection';
 /* --- 7. CONSULTATION FORM SECTION --- */
 export const ConsultationSection = React.memo(function ConsultationSection() {
   return (
-    <section aria-label="Đăng ký tư vấn trực tuyến" className="px-4 sm:px-6 py-6 md:py-12 w-full max-w-5xl mx-auto">
+    <section aria-label="Đăng ký tư vấn trực tuyến" className="px-4 sm:px-6 py-6 md:py-8 w-full max-w-7xl mx-auto">
       <ConsultationForm />
     </section>
   );

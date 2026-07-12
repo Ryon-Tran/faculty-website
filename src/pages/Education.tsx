@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppSidebar } from '../components/ui/AppSidebar';
+
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -66,7 +66,7 @@ export default function Education() {
               ))}
             </div>
           </div>
-          <AppSidebar />
+          
           <div className="bg-[#f5f7fa] flex flex-col gap-[16px] items-start p-[24px] rounded-[12px] w-full">
             <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0">Tài liệu</p>
             <div className="flex flex-col gap-[12px] w-full">

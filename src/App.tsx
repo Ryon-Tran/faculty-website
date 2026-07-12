@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
-import AboutDetail from './pages/AboutDetail';
 import NewsList from './pages/NewsList';
 import NewsDetail from './pages/NewsDetail';
 import Admissions from './pages/Admissions';
@@ -21,6 +20,8 @@ import Gallery from './pages/Gallery';
 import Videos from './pages/Videos';
 import NotFound from './pages/NotFound';
 import Cooperation from './pages/Cooperation';
+import Organization from './pages/Organization';
+import Outcomes from './pages/Outcomes';
 
 export default function App() {
   return (
@@ -32,7 +33,7 @@ export default function App() {
 
           {/* Giới thiệu */}
           <Route path="gioi-thieu" element={<About />} />
-          <Route path="gioi-thieu/:slug" element={<AboutDetail />} />
+          <Route path="gioi-thieu/co-cau-to-chuc" element={<Organization />} />
           <Route path="khoa-bo-mon" element={<Departments />} />
 
           {/* Tin tức & Thông báo */}
@@ -47,6 +48,7 @@ export default function App() {
 
           {/* Đào tạo */}
           <Route path="dao-tao" element={<Education />} />
+          <Route path="chuan-dau-ra" element={<Outcomes />} />
           <Route path="tai-lieu-bieu-mau" element={<Documents />} />
 
           {/* Hợp tác */}

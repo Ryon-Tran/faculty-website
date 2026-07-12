@@ -26,7 +26,7 @@ export const Card = React.memo(function Card({
 
   return (
     <Component
-      className={`bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col ${borderClasses} ${hoverClasses} ${className}`}
+      className={`bg-white rounded-lg shadow-sm overflow-hidden flex flex-col ${borderClasses} ${hoverClasses} ${className}`}
       {...props}
     >
       {children}

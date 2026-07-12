@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppSidebar } from '../components/ui/AppSidebar';
+
 
 const documents = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
@@ -77,7 +77,7 @@ export default function Documents() {
               Nhấn nút "Tải" để tải tài liệu về máy tính. Nếu gặp vấn đề, vui lòng liên hệ Văn phòng Khoa.
             </p>
           </div>
-          <AppSidebar />
+          
         </aside>
       </div>
     </div>

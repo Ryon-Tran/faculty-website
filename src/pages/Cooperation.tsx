@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import cooperationData from '../data/cooperation.json';
-import { AppSidebar } from '../components/ui/AppSidebar';
+
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -131,7 +131,7 @@ export default function Cooperation() {
               ))}
             </div>
           </div>
-          <AppSidebar />
+          
         </div>
       </div>
     </div>

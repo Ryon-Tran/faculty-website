@@ -24,17 +24,12 @@ const videos = Array.from({ length: 9 }, (_, i) => ({
 export default function Videos() {
   return (
     <div className="flex flex-col items-start w-full font-['Inter']">
-      <div className="flex gap-2 items-center px-20 py-5 w-full md:px-5 lg:px-20">
+      <div className="flex gap-2 items-center px-20 py-5 w-full md:px-5 ">
         <Link to="/" className="font-medium text-[#0d4d99] text-[14px] no-underline">Trang chủ</Link>
         <span className="text-[#666] text-[12px]">&gt;</span>
         <p className="font-normal text-[#666] text-[14px] m-0">Video</p>
       </div>
-
-      <div className="flex h-55 sm:h-75 items-center justify-center relative w-full bg-[#1a428a]">
-        <p className="font-extrabold text-[30px] sm:text-[42px] text-center text-white uppercase relative">Video</p>
-      </div>
-
-      <div className="flex flex-col gap-10 items-start px-4 sm:px-6 py-10 sm:py-16 w-full lg:px-6">
+      <div className="flex flex-col gap-10 items-start px-4 sm:px-6 w-full lg:px-6">
         {/* Featured video */}
         <div className="flex flex-col gap-[16px] w-full">
           <h2 className="font-bold text-[#c8102e] text-[24px] uppercase m-0">Video nổi bật</h2>

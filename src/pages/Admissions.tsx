@@ -1,15 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import admissionsData from '../data/admissions.json';
-import { AppSidebar } from '../components/ui/AppSidebar';
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
 const admissionPrograms = [
-  { code: "7140218", name: "Sư phạm Lịch sử", quota: 50, method: "Xét tuyển kết hợp", score: "24.0" },
-  { code: "7140219", name: "Sư phạm Địa lý", quota: 50, method: "Xét tuyển kết hợp", score: "23.5" },
-  { code: "7140205", name: "Giáo dục Chính trị", quota: 40, method: "Xét tuyển kết hợp", score: "22.0" },
-  { code: "7860101", name: "Giáo dục Quốc phòng An ninh", quota: 60, method: "Xét tuyển kết hợp", score: "21.5" },
+  { code: "7140218", name: "Sư phạm Lịch sử", quota: 50, method: "Xét tuyển kết hợp, Xét học bạ, Xét điểm THPT", score: "24.5" },
+  { code: "7140219", name: "Sư phạm Địa lý", quota: 50, method: "Xét tuyển kết hợp, Xét học bạ, Xét điểm THPT", score: "23.8" },
+  { code: "7140249", name: "Sư phạm Lịch sử - Địa lý", quota: 60, method: "Xét tuyển kết hợp, Xét học bạ, Xét điểm THPT", score: "25.0" },
+  { code: "7140205", name: "Giáo dục Chính trị", quota: 40, method: "Xét tuyển kết hợp, Xét điểm THPT", score: "22.0" },
+  { code: "7140204", name: "Giáo dục Công dân", quota: 30, method: "Xét tuyển kết hợp, Xét điểm THPT", score: "21.5" },
+  { code: "7860101", name: "Giáo dục Quốc phòng An ninh", quota: 60, method: "Xét tuyển kết hợp, Xét điểm THPT", score: "21.5" },
+  { code: "7220204", name: "Lịch sử", quota: 40, method: "Xét tuyển học bạ, Xét điểm THPT", score: "20.5" },
+  { code: "7310501", name: "Địa lý học", quota: 40, method: "Xét tuyển học bạ, Xét điểm THPT", score: "20.0" },
+  { code: "7310630", name: "Việt Nam học (Văn hóa - Du lịch)", quota: 80, method: "Xét học bạ, Xét điểm THPT", score: "22.5" },
 ];
 
 const getDayAndMonth = (dateStr: string) => {
@@ -63,7 +67,7 @@ export default function Admissions() {
                     <th className="p-[12px] text-left font-semibold">Tên ngành</th>
                     <th className="p-[12px] text-center font-semibold">Chỉ tiêu</th>
                     <th className="p-[12px] text-left font-semibold">Phương thức</th>
-                    <th className="p-[12px] text-center font-semibold rounded-tr-[8px]">Điểm chuẩn 2025</th>
+                    <th className="p-[12px] text-center font-semibold rounded-tr-[8px]">Điểm chuẩn 2026</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -85,20 +89,18 @@ export default function Admissions() {
             <h2 className="font-bold text-[#c8102e] text-[24px] uppercase m-0">Tin tuyển sinh</h2>
             <div className="flex flex-col items-start w-full">
               {admissionsData.map((item, idx) => {
-                const { day, month } = getDayAndMonth(item.date);
-                const colors = ["#1a428a", "#c8102e"];
-                const color = colors[idx % 2];
+                const cleanTitle = item.title.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '').trim();
                 return (
-                  <Link to={`/tin-tuc/${getSlug(item.link)}`} key={idx} className="border-[#e5e7eb] border-b flex gap-[16px] items-start py-[12px] w-full last:border-b-0 cursor-pointer hover:bg-[#f5f7fa] transition-colors p-[8px] rounded-[8px] no-underline">
-                    <div className="flex flex-col gap-[4px] items-center w-[48px] shrink-0">
-                      <div className="flex items-center justify-center rounded-[4px] size-[40px]" style={{ backgroundColor: color }}>
-                        <span className="font-bold text-[18px] text-white">{day}</span>
+                  <Link to={`/tin-tuc/${getSlug(item.link)}`} key={idx} className="border-[#e5e7eb] border-b flex flex-col sm:flex-row gap-4 sm:gap-[16px] items-start py-[16px] w-full last:border-b-0 cursor-pointer hover:bg-[#f5f7fa] transition-colors p-[8px] rounded-[8px] no-underline">
+                    <div className="flex flex-row sm:flex-col items-center shrink-0 w-full sm:w-[120px] gap-2 sm:gap-0">
+                      <div className="relative flex items-center justify-center rounded-[6px] w-full aspect-[16/10] overflow-hidden bg-gray-100">
+                        <img alt={cleanTitle} className="absolute inset-0 object-cover size-full" src={item.image || placeholderImg} />
                       </div>
-                      <span className="font-semibold text-[9px] uppercase" style={{ color: color }}>{month}</span>
                     </div>
-                    <div className="flex flex-1 flex-col gap-[4px] items-start">
-                      <p className="font-semibold text-[#111] text-[14px] m-0 line-clamp-2">{item.title}</p>
+                    <div className="flex flex-1 flex-col gap-[6px] items-start w-full">
+                      <p className="font-semibold text-[#111] text-[15px] m-0 hover:text-[#1a428a] transition-colors line-clamp-2">{cleanTitle}</p>
                       <p className="font-normal text-[#666] text-[13px] m-0 line-clamp-2">{item.description || "Xem chi tiết thông báo tuyển sinh tại đây..."}</p>
+                      <p className="font-normal text-[#808080] text-[12px] m-0 mt-1">{item.date}</p>
                     </div>
                   </Link>
                 );
@@ -111,7 +113,7 @@ export default function Admissions() {
           <div className="bg-[#f5f7fa] flex flex-col gap-[16px] items-start p-[24px] rounded-[12px] w-full">
             <p className="font-bold text-[#1a428a] text-[16px] uppercase m-0">Liên kết nhanh</p>
             <div className="flex flex-col gap-[12px] w-full">
-              {['Hướng dẫn đăng ký', 'Điểm chuẩn 2025', 'Chương trình đào tạo', 'Học bổng & Ưu đãi', 'FAQ Tuyển sinh'].map((link, idx) => (
+              {['Hướng dẫn đăng ký', 'Điểm chuẩn 2026', 'Chương trình đào tạo', 'Học bổng & Ưu đãi', 'FAQ Tuyển sinh'].map((link, idx) => (
                 <div key={idx} className="flex gap-[8px] items-center w-full cursor-pointer hover:underline text-[#0d4d99]">
                   <span className="text-[12px]">&gt;</span>
                   <p className="flex-1 font-medium text-[14px] m-0">{link}</p>
@@ -126,7 +128,6 @@ export default function Admissions() {
               Liên hệ ngay →
             </button>
           </div>
-          <AppSidebar />
         </div>
       </div>
     </div>

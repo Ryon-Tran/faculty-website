@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import newsData from '../data/news.json';
-import { AppSidebar } from '../components/ui/AppSidebar';
+
 
 const placeholderImg = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000";
 
@@ -76,20 +76,23 @@ export default function NewsList() {
           
           {paginatedNews.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px] w-full">
-              {paginatedNews.map((item, idx) => (
+              {paginatedNews.map((item, idx) => {
+                const cleanTitle = item.title.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '').trim();
+                return (
                 <Link to={`/tin-tuc/${getSlug(item.link)}`} key={idx} className="bg-white flex flex-col overflow-hidden rounded-[12px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] cursor-pointer hover:-translate-y-1 transition-transform no-underline">
                   <div className="aspect-[16/10] relative w-full bg-gray-100">
-                    <img alt={item.title} className="absolute inset-0 object-cover size-full" src={item.image || placeholderImg} />
+                    <img alt={cleanTitle} className="absolute inset-0 object-cover size-full" src={item.image || placeholderImg} />
                     <span className="absolute top-[12px] left-[12px] bg-[#1a428a] text-white text-[11px] font-semibold px-[10px] py-[4px] rounded-[4px]">
                       {getCategory(item.link)}
                     </span>
                   </div>
                   <div className="flex flex-col gap-[8px] p-[16px]">
-                    <p className="font-semibold leading-[1.4] text-[#036] text-[14px] line-clamp-2 m-0">{item.title}</p>
+                    <p className="font-semibold leading-[1.4] text-[#036] text-[14px] line-clamp-2 m-0">{cleanTitle}</p>
                     <p className="font-normal text-[#808080] text-[12px] m-0">{item.date}</p>
                   </div>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center w-full py-[60px] text-gray-500">
@@ -137,7 +140,7 @@ export default function NewsList() {
               ))}
             </div>
           </div>
-          <AppSidebar />
+          
         </div>
       </div>
     </div>
