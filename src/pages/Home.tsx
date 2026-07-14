@@ -419,16 +419,6 @@ export const FacesSection = React.memo(function FacesSection() {
 
 FacesSection.displayName = 'FacesSection';
 
-/* --- 7. CONSULTATION FORM SECTION --- */
-export const ConsultationSection = React.memo(function ConsultationSection() {
-  return (
-    <section aria-label="Đăng ký tư vấn trực tuyến" className="px-4 sm:px-6 py-6 md:py-8 w-full max-w-7xl mx-auto">
-      <ConsultationForm />
-    </section>
-  );
-});
-
-ConsultationSection.displayName = 'ConsultationSection';
 
 /* --- MAIN HOME PAGE COMPONENT --- */
 export default function Home() {
@@ -439,7 +429,6 @@ export default function Home() {
       <AdmissionsSection />
       <ActivitiesSection />
       <FacesSection />
-      <ConsultationSection />
     </div>
   );
 }
